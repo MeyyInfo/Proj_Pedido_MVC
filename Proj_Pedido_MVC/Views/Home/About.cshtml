@@ -1,7 +1,13 @@
 ﻿@{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "Sobre"; //Este bloco aceita comandos C#. Define Title como Sobre e aproveita na página HTML.
 }
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
-<p>Use this area to provide additional information.</p>
+<p>Professora: @ViewData["Professora"]</p>
+<p>@ViewData["email"]</p>
+
+
+<address>
+    <strong>Information: </strong> <a href="http://www.udemy.com">udemy.com</a>
+</address>

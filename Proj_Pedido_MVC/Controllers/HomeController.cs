@@ -17,7 +17,9 @@ namespace Proj_Pedido_MVC.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Olá, Mundo!";
+            ViewData["Professora"] = "Roberta Baptista Rodrigues";
+            ViewData["email"] = "robertabr@gmail.com";
 
             return View();
         }
