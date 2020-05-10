@@ -8,8 +8,6 @@ C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC
 C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\bin\Debug\netcoreapp2.1\Proj_Pedido_MVC.pdb
 C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\bin\Debug\netcoreapp2.1\Proj_Pedido_MVC.Views.dll
 C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\bin\Debug\netcoreapp2.1\Proj_Pedido_MVC.Views.pdb
-C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\obj\Debug\netcoreapp2.1\Proj_Pedido_MVC.csprojAssemblyReference.cache
-C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\obj\Debug\netcoreapp2.1\Proj_Pedido_MVC.csproj.CoreCompileInputs.cache
 C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\obj\Debug\netcoreapp2.1\Proj_Pedido_MVC.RazorAssemblyInfo.cache
 C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\obj\Debug\netcoreapp2.1\Proj_Pedido_MVC.RazorAssemblyInfo.cs
 C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\obj\Debug\netcoreapp2.1\Proj_Pedido_MVC.AssemblyInfoInputs.cache
@@ -35,3 +33,6 @@ C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC
 C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\obj\Debug\netcoreapp2.1\Proj_Pedido_MVC.genruntimeconfig.cache
 C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\obj\Debug\netcoreapp2.1\Proj_Pedido_MVC.csproj.CopyComplete
 C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\bin\Debug\netcoreapp2.1\Connected Services\Application Insights\ConnectedService.json
+C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\obj\Debug\netcoreapp2.1\Proj_Pedido_MVC.csproj.CoreCompileInputs.cache
+C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\obj\Debug\netcoreapp2.1\Proj_Pedido_MVC.csprojAssemblyReference.cache
+C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\obj\Debug\netcoreapp2.1\Razor\Views\Departments\Index.cshtml.g.cs
