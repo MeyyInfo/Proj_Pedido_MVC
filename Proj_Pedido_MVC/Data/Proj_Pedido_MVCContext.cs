@@ -15,5 +15,7 @@ namespace Proj_Pedido_MVC.Data
         }
 
         public DbSet<Proj_Pedido_MVC.Models.Department> Department { get; set; }
+        public DbSet<Proj_Pedido_MVC.Models.Seller> Seller { get; set; }
+        public DbSet<Proj_Pedido_MVC.Models.SalesRecord> SalesRecord { get; set; }
     }
 }
