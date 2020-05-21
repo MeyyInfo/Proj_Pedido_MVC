@@ -39,14 +39,22 @@ namespace Proj_Pedido_MVC
             services.AddDbContext<Proj_Pedido_MVCContext>(options =>
                     options.UseMySql(Configuration.GetConnectionString("Proj_Pedido_MVCContext"), builder =>
                       builder.MigrationsAssembly("Proj_Pedido_MVC")));
+
+
+            services.AddScoped<PedidoService>();
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, PedidoService pedidoService)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //Popular a base de dados, quase não esteja pupulada ainda.
+                pedidoService.Seed();
             }
             else
             {
