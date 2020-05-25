@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Proj_Pedido_MVC.Data;
+using Proj_Pedido_MVC.Services;
 
 namespace Proj_Pedido_MVC
 {
@@ -42,7 +43,7 @@ namespace Proj_Pedido_MVC
 
 
             services.AddScoped<PedidoService>();
-
+            services.AddScoped<SellerService>();
 
 
         }
