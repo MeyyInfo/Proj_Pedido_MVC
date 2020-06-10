@@ -4,17 +4,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Proj_Pedido_MVC.Models;
+using Proj_Pedido_MVC.Models.ViewModels;
 using Proj_Pedido_MVC.Services;
+
 
 namespace Proj_Pedido_MVC.Controllers
 {
     public class SellersController : Controller
     {
         private readonly SellerService _sellerService;
+        private readonly DepartmentService _departmentService;
 
-        public SellersController(SellerService sellerService)
+
+        //_departmentServiceService da classe recebe departmentService do argumento.
+
+        public SellersController(SellerService sellerService, DepartmentService departmentService)
         {
             _sellerService = sellerService;
+            _departmentService = departmentService;
         }
 
         public IActionResult Index()
@@ -25,8 +32,13 @@ namespace Proj_Pedido_MVC.Controllers
 
         public IActionResult Create()
         {
-
-            return View();
+            //Busca no BD todos os departamentos
+            var departments = _departmentService.FindAll();
+            //Instanciar o objeto do ViewModel
+            //
+            var viewModel = new SellerFormViewModel { Departments=departments};
+            //Passar o objeto viewModel para a View
+            return View(viewModel);
             
         }
 

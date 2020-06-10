@@ -44,7 +44,7 @@ namespace Proj_Pedido_MVC
 
             services.AddScoped<PedidoService>();
             services.AddScoped<SellerService>();
-
+            services.AddScoped<DepartmentService>();
 
         }
 
