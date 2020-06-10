@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proj_Pedido_MVC.Data;
 
 namespace Proj_Pedido_MVC.Migrations
 {
     [DbContext(typeof(Proj_Pedido_MVCContext))]
-    partial class Proj_Pedido_MVCContextModelSnapshot : ModelSnapshot
+    [Migration("20200610174522_DepartmentForeignKey")]
+    partial class DepartmentForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

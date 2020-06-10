@@ -24,6 +24,7 @@ namespace Proj_Pedido_MVC.Services
         //Inserir o objeto obj no banco de dados
         public void Insert(Seller obj)
         {
+            obj.Department = _context.Department.First();
             _context.Add(obj);
             //Para confirmar a operação no Banco de Dados
             _context.SaveChanges();
