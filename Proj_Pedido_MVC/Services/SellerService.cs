@@ -21,5 +21,15 @@ namespace Proj_Pedido_MVC.Services
             return _context.Seller.ToList();
         }
 
+        //Inserir o objeto obj no banco de dados
+        public void Insert(Seller obj)
+        {
+            _context.Add(obj);
+            //Para confirmar a operação no Banco de Dados
+            _context.SaveChanges();
+        }
+
+
+
     }
 }
