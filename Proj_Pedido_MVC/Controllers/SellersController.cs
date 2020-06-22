@@ -54,6 +54,35 @@ namespace Proj_Pedido_MVC.Controllers
             //nameof - se mudar o nome do string da ação Index não precisa mudar na chamada.
         }
 
+        //Esta ação recebe um int opcional que é o Id. A interrogação indica que é opcional.
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            //Precisa colocar id.Value para pegar o valor dele, porque ele é um nullable (um objeto opcional),
+            var obj = _sellerService.FindById(id.Value);
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            _sellerService.Remove(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+
 
 
 
