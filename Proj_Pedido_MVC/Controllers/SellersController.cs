@@ -82,7 +82,23 @@ namespace Proj_Pedido_MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            //Precisa colocar id.Value para pegar o valor dele, porque ele é um nullable (um objeto opcional),
+            var obj = _sellerService.FindById(id.Value);
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
 
 
 
