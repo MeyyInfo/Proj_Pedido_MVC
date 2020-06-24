@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Proj_Pedido_MVC.Models;
 using Proj_Pedido_MVC.Models.ViewModels;
 using Proj_Pedido_MVC.Services;
-
+using Proj_Pedido_MVC.Services.Exceptions;
 
 namespace Proj_Pedido_MVC.Controllers
 {
@@ -99,6 +99,73 @@ namespace Proj_Pedido_MVC.Controllers
 
             return View(obj);
         }
+
+
+        /*A ação Edit serve para abrir a tela para editar o vendedor
+        int (?) - opcional para evitar de acontecer um  erro de execução, na verdade,
+        o Id é obrigatório.*/
+        public IActionResult Edit(int? Id)
+        {
+            //Se o Id for nulo, significa que a requisição foi feita de forma errada.
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            //Testar se o Id existe no BD
+
+            var obj = _sellerService.FindById(Id.Value);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            /*Se tudo passar, abrir a tela de edição. Para abrir a tela de edição é preciso
+            carregar os Departamentos para povoar a caixa de seleção*/
+
+            List<Department> departments = _departmentService.FindAll();
+
+            /* Instanciar o ViewModel
+               Preencher os dados com o objeto Seller passado
+             */
+
+            SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
+
+            //Retornar a View, passando o viewModel como argumento
+            return View(viewModel);
+
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Seller seller)
+        {
+            //O id do vendedor não pode ser diferente do id da requisição
+            if (id != seller.Id)
+            {
+                return BadRequest();
+            }
+
+            /*A chamada o Update pode lançar exceções, colocar a chamada dentro de um Try-Cath   */
+
+            try
+            {
+                _sellerService.Update(seller);
+                //Redirecionar a requisição para a página inicial do CRUD
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch(NotFoundException){
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
+            
+        }
+
 
 
 
