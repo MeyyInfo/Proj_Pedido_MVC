@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -59,7 +60,10 @@ namespace Proj_Pedido_MVC.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                //A ação Error recebe um argumento que é a mensagem. Para passar o argumento criar um objeto
+                //anonimo new ...
+                //Dessa forma, redireciona para a página de Error.
+                return RedirectToAction(nameof(Error), new { message = "Id not provided"});
             }
 
             //Precisa colocar id.Value para pegar o valor dele, porque ele é um nullable (um objeto opcional),
@@ -67,7 +71,7 @@ namespace Proj_Pedido_MVC.Controllers
 
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
             return View(obj);
@@ -86,7 +90,7 @@ namespace Proj_Pedido_MVC.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
             //Precisa colocar id.Value para pegar o valor dele, porque ele é um nullable (um objeto opcional),
@@ -94,7 +98,7 @@ namespace Proj_Pedido_MVC.Controllers
 
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
             return View(obj);
@@ -109,7 +113,7 @@ namespace Proj_Pedido_MVC.Controllers
             //Se o Id for nulo, significa que a requisição foi feita de forma errada.
             if (Id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
             //Testar se o Id existe no BD
@@ -117,7 +121,7 @@ namespace Proj_Pedido_MVC.Controllers
             var obj = _sellerService.FindById(Id.Value);
             if(obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
             /*Se tudo passar, abrir a tela de edição. Para abrir a tela de edição é preciso
@@ -144,7 +148,9 @@ namespace Proj_Pedido_MVC.Controllers
             //O id do vendedor não pode ser diferente do id da requisição
             if (id != seller.Id)
             {
-                return BadRequest();
+                //return BadRequest();
+                //Id mismatch - O Id não corresponde.
+                return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
             }
 
             /*A chamada o Update pode lançar exceções, colocar a chamada dentro de um Try-Cath   */
@@ -156,18 +162,40 @@ namespace Proj_Pedido_MVC.Controllers
                 return RedirectToAction(nameof(Index));
 
             }
-            catch(NotFoundException){
-                return NotFound();
+            //Como estes dois casos são exceções e as exceções carregam mensagem, na frente da declaração da exceção
+            //colocar um apelido e, logo, será retornada a mensagem da exceção.
+            catch(NotFoundException e){
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
-            catch (DbConcurrencyException)
+            catch (DbConcurrencyException e)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
-            
+
+            //Ao invés de utilizar as duas exceções (RedirectToAction e DbConcurrencyException) pode utilizar o ApplicationException, 
+            // que é um super tipo das duas exceções
+
+            //catch (ApplicationException e)
+            //{
+            //    return RedirectToAction(nameof(Error), new { message = e.Message });
+            //}
+
+
         }
 
+        public IActionResult Error(string message)
+        {
+            //O atributo Message será a mensagem passada como argumento (message).
+            //O RequestId será o Id interno da requisição.
+            //Current? é opcional por causa da interrogação. Se ele for nulo, usar o perador de coalecencia nula (??)
+            // e dizer que vai querer no lugar, o objeto HttpContext.TraceIdentifier.
+            //RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier - Massete do Framework para pegar o Id interno da requisição.
+            var viewModel = new ErrorViewModel { Message = message, RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
 
+            return View(viewModel);
+        }
 
+       
 
     }
 }
