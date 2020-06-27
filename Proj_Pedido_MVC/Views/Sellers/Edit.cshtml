@@ -13,27 +13,31 @@
 <div class="row">
     <div class="col-md-4">
 
-        <!--Quando o formulário for enviado, será chamada a ação Edit, que será criada no método POST -->         
+        <!--Quando o formulário for enviado, será chamada a ação Edit, que será criada no método POST -->
         <form asp-action="Edit">
-            
+
             <!-- Incluir um campo oculto (hidden) com o Id do vendedor -->
-            <input type="hidden" asp-for="Seller.Id"/>
+            <input type="hidden" asp-for="Seller.Id" />
 
             <div>
                 <label asp-for="Seller.Name" class="control-label"></label>
                 <input asp-for="Seller.Name" class="form-control" />
+                <span asp-validation-for="Seller.Name" class="text-danger"></span>
             </div>
             <div>
                 <label asp-for="Seller.Email" class="control-label"></label>
                 <input asp-for="Seller.Email" class="form-control" />
+                <span asp-validation-for="Seller.Email" class="text-danger"></span>
             </div>
             <div>
                 <label asp-for="Seller.BirthDate" class="control-label"></label>
                 <input asp-for="Seller.BirthDate" class="form-control" />
+                <span asp-validation-for="Seller.BirthDate" class="text-danger"></span>
             </div>
             <div>
                 <label asp-for="Seller.BaseSalary" class="control-label"></label>
                 <input asp-for="Seller.BaseSalary" class="form-control" />
+                <span asp-validation-for="Seller.BaseSalary" class="text-danger"></span>
             </div>
             <br />
 
@@ -49,3 +53,10 @@
         </form>
     </div>
 </div>
+
+
+
+<!--Habilita da validação por meio de Javascript-->
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

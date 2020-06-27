@@ -33,6 +33,8 @@ namespace Proj_Pedido_MVC.Controllers
 
         public IActionResult Create()
         {
+           
+
             //Busca no BD todos os departamentos
             var departments = _departmentService.FindAll();
             //Instanciar o objeto do ViewModel
@@ -48,6 +50,18 @@ namespace Proj_Pedido_MVC.Controllers
         [ValidateAntiForgeryToken] //Evita ataques maliciosos em que aproveita a autenticação.
         public IActionResult Create(Seller seller)
         {
+
+            // ModelState.IsValid - Verifica se o modelo foi validado
+            if (!ModelState.IsValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+
+                // Retorna para a View Create repassando o objeto seller, volta e conserta
+                return View(viewModel);
+            }
+
+
             //Ação de inserir o objeto no banco de dados
             _sellerService.Insert(seller);
             //Redirecionar a requisição para a ação Index, que é a ação que vai mostrar novamente a tela principal do CRUD de vendedores.
@@ -145,6 +159,20 @@ namespace Proj_Pedido_MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Seller seller)
         {
+
+            // ModelState.IsValid - Verifica se o modelo foi validado
+            if (!ModelState.IsValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };        
+                
+                // Retorna para a View Create repassando o objeto seller, volta e conserta
+                return View(viewModel);
+            }
+
+
+
+
             //O id do vendedor não pode ser diferente do id da requisição
             if (id != seller.Id)
             {
