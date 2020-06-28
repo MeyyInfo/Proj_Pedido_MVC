@@ -1,4 +1,6 @@
-﻿using Proj_Pedido_MVC.Data;
+﻿using Microsoft.AspNetCore.Internal;
+using Microsoft.EntityFrameworkCore;
+using Proj_Pedido_MVC.Data;
 using Proj_Pedido_MVC.Models;
 using System;
 using System.Collections.Generic;
@@ -18,12 +20,17 @@ namespace Proj_Pedido_MVC.Services
 
         //Método para retornar todos os departamentos ordenados por nome
 
-        public List<Department> FindAll()
+        public async Task<List<Department>> FindAllAsync()
         {
-            return _context.Department.OrderBy(x => x.Name).ToList();
+            return await _context.Department.OrderBy(x => x.Name).ToListAsync();
         }
 
+        //await - para fazer uma chamada assincrona dentro do método usar a palavra await 
 
+        //A expressão link não é executada ela só prepara a consulta.
+        //O ToList() que executa a consulta e transforma o resultado para list
+        //ToList() é uma operação sincrona, porém existe outra versão do ToList()
+        //ToListAsync - não é do List é o Entity Framework.
 
 
     }

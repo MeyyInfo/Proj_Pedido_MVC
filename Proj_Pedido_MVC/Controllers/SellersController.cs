@@ -25,18 +25,17 @@ namespace Proj_Pedido_MVC.Controllers
             _departmentService = departmentService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _sellerService.FindAll();
+            var list = await _sellerService.FindAllAsync();
             return View(list);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
            
-
             //Busca no BD todos os departamentos
-            var departments = _departmentService.FindAll();
+            var departments = await _departmentService.FindAllAsync();
             //Instanciar o objeto do ViewModel
             //
             var viewModel = new SellerFormViewModel { Departments=departments};
@@ -48,13 +47,13 @@ namespace Proj_Pedido_MVC.Controllers
         //Recebe o objeto Seller que veio da requisição
         [HttpPost] //Definir a ação como Post
         [ValidateAntiForgeryToken] //Evita ataques maliciosos em que aproveita a autenticação.
-        public IActionResult Create(Seller seller)
+        public async Task<IActionResult> Create(Seller seller)
         {
 
             // ModelState.IsValid - Verifica se o modelo foi validado
             if (!ModelState.IsValid)
             {
-                var departments = _departmentService.FindAll();
+                var departments = await _departmentService.FindAllAsync();
                 var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
 
                 // Retorna para a View Create repassando o objeto seller, volta e conserta
@@ -63,14 +62,14 @@ namespace Proj_Pedido_MVC.Controllers
 
 
             //Ação de inserir o objeto no banco de dados
-            _sellerService.Insert(seller);
+            await _sellerService.InsertAsync(seller);
             //Redirecionar a requisição para a ação Index, que é a ação que vai mostrar novamente a tela principal do CRUD de vendedores.
             return RedirectToAction(nameof(Index));
             //nameof - se mudar o nome do string da ação Index não precisa mudar na chamada.
         }
 
         //Esta ação recebe um int opcional que é o Id. A interrogação indica que é opcional.
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -81,7 +80,7 @@ namespace Proj_Pedido_MVC.Controllers
             }
 
             //Precisa colocar id.Value para pegar o valor dele, porque ele é um nullable (um objeto opcional),
-            var obj = _sellerService.FindById(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
 
             if (obj == null)
             {
@@ -94,13 +93,13 @@ namespace Proj_Pedido_MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _sellerService.Remove(id);
+            await _sellerService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -108,7 +107,7 @@ namespace Proj_Pedido_MVC.Controllers
             }
 
             //Precisa colocar id.Value para pegar o valor dele, porque ele é um nullable (um objeto opcional),
-            var obj = _sellerService.FindById(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
 
             if (obj == null)
             {
@@ -122,7 +121,7 @@ namespace Proj_Pedido_MVC.Controllers
         /*A ação Edit serve para abrir a tela para editar o vendedor
         int (?) - opcional para evitar de acontecer um  erro de execução, na verdade,
         o Id é obrigatório.*/
-        public IActionResult Edit(int? Id)
+        public async Task<IActionResult> Edit(int? Id)
         {
             //Se o Id for nulo, significa que a requisição foi feita de forma errada.
             if (Id == null)
@@ -132,7 +131,7 @@ namespace Proj_Pedido_MVC.Controllers
 
             //Testar se o Id existe no BD
 
-            var obj = _sellerService.FindById(Id.Value);
+            var obj = await _sellerService.FindByIdAsync(Id.Value);
             if(obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
@@ -141,7 +140,7 @@ namespace Proj_Pedido_MVC.Controllers
             /*Se tudo passar, abrir a tela de edição. Para abrir a tela de edição é preciso
             carregar os Departamentos para povoar a caixa de seleção*/
 
-            List<Department> departments = _departmentService.FindAll();
+            List<Department> departments = await _departmentService.FindAllAsync();
 
             /* Instanciar o ViewModel
                Preencher os dados com o objeto Seller passado
@@ -157,21 +156,18 @@ namespace Proj_Pedido_MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Seller seller)
+        public async Task<IActionResult> Edit(int id, Seller seller)
         {
 
             // ModelState.IsValid - Verifica se o modelo foi validado
             if (!ModelState.IsValid)
             {
-                var departments = _departmentService.FindAll();
+                var departments = await _departmentService.FindAllAsync();
                 var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };        
                 
                 // Retorna para a View Create repassando o objeto seller, volta e conserta
                 return View(viewModel);
             }
-
-
-
 
             //O id do vendedor não pode ser diferente do id da requisição
             if (id != seller.Id)
@@ -185,7 +181,7 @@ namespace Proj_Pedido_MVC.Controllers
 
             try
             {
-                _sellerService.Update(seller);
+                await _sellerService.UpdateAsync(seller);
                 //Redirecionar a requisição para a página inicial do CRUD
                 return RedirectToAction(nameof(Index));
 
@@ -207,8 +203,6 @@ namespace Proj_Pedido_MVC.Controllers
             //{
             //    return RedirectToAction(nameof(Error), new { message = e.Message });
             //}
-
-
         }
 
         public IActionResult Error(string message)
