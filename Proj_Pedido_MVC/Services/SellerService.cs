@@ -41,11 +41,23 @@ namespace Proj_Pedido_MVC.Services
 
         public async Task RemoveAsync(int id)
         {
-            var obj = await _context.Seller.FindAsync(id);
-            //Faz a alteração do DBSet
-            _context.Seller.Remove(obj);
-            //Confirma a alteração do BD
-            await _context.SaveChangesAsync();
+            try
+            {
+                var obj = await _context.Seller.FindAsync(id);
+                //Faz a alteração do DBSet
+                _context.Seller.Remove(obj);
+                //Confirma a alteração do BD
+                await _context.SaveChangesAsync();
+            }
+            //O catch para capturar uma possível DbUpdateException
+            catch(DbUpdateException)
+            {
+                //Quando essa exceção ocorrer será lançada uma nova exceção,
+                //nossa exceção de serviço, passando a exceção que veio do Framework.
+                throw new IntegrityException("Can't delete seller because he/she has sales");
+
+            }
+           
         }
 
         public async Task UpdateAsync(Seller obj)
