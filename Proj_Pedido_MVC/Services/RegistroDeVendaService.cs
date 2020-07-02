@@ -20,6 +20,9 @@ namespace Proj_Pedido_MVC.Services
                  _context = context;
         }
 
+
+        // ------------- BUSCA SIMPLES ------------------
+
         //OPERAÇÃO ASSÍNCRONA QUE BUSCA OS REGISTROS DE VENDA POR DATA (OPCIONAIS)
 
         //Vai retornar um List de SalesRecord
@@ -58,5 +61,48 @@ namespace Proj_Pedido_MVC.Services
                 .ToListAsync();
 
         }
+
+        // ------------- BUSCA AGRUPADA ------------------
+
+        //Não é um lista simples. É uma lista de IGrouping <Department, SalesRecord>, está agrupando por departamento
+        public async Task<List<IGrouping<Department,SalesRecord>>> FindByDateGroupingAsync(DateTime? minDate, DateTime? maxDate)
+        {
+            //Construir a consulta a partir do Dbcontext do SalesRecord.
+            var result = from obj in _context.SalesRecord select obj;
+            //HasValue - Se for informada uma data mínima
+            if (minDate.HasValue)
+            {
+                result = result.Where(x => x.Date >= minDate.Value);
+            }
+
+            if (maxDate.HasValue)
+            {
+                result = result.Where(x => x.Date <= maxDate.Value);
+            }
+
+            //Retorna a consulta no formato de lista
+
+            //return result.ToList();
+
+            //Pode agregar outras coisas, por exemplo, fazer um Join coma tabela de 
+            //Vendedor e de Departamento, assim como ordenar decrescentemente por data
+
+            // includ - função do Entity Framework - Importar o Microsoft.EntityFrameworkCore
+
+            return await result
+                .Include(x => x.Seller) //Faz o Join com a Tabela de Vendedor
+                .Include(x => x.Seller.Department) //Faz o Join com a Tabela de Departamento
+                .OrderByDescending(x => x.Date) //Ordenar por data
+                //AGRUPAR OS RESULTADOS POR DEPARTAMENTO
+                //Quando agrupa os resultados o tipo de retorno não será mais uma lista simples,
+                //os resultados vão estar agrupados em uma coleção chamada IGrouping
+                .GroupBy(x=>x.Seller.Department)
+                .ToListAsync();
+
+        }
+
+
+
+
     }
 }

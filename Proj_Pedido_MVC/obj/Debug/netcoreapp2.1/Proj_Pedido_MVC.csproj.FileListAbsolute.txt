@@ -47,4 +47,3 @@ C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC
 C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\obj\Debug\netcoreapp2.1\Razor\Views\RegistroDeVendas\Index.cshtml.g.cs
 C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\obj\Debug\netcoreapp2.1\Razor\Views\RegistroDeVendas\SimpleSearch.cshtml.g.cs
 C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\obj\Debug\netcoreapp2.1\Razor\Views\RegistroDeVendas\GroupingSearch.cshtml.g.cs
-C:\1_Roberta\1_CursosTI\2_Back_End\2_C_Sharp\Avancado\Exercicios\Proj_Pedido_MVC\Proj_Pedido_MVC\Proj_Pedido_MVC\obj\Debug\netcoreapp2.1\Proj_Pedido_MVC.csprojAssemblyReference.cache

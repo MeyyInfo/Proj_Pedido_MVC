@@ -1,12 +1,94 @@
-﻿
+﻿@model IEnumerable<IGrouping<Department, SalesRecord>>
+
+
 @{
     ViewData["Title"] = "Grouping Search";
+    //Variáveis declaradas a partir do C#
+    //Pegar o minDate e o maxDate enviados pelo controlado, fazer um casting para string e criar
+    //uma data a partir dele
+    DateTime minDate = DateTime.Parse(ViewData["minDate"] as string);
+    DateTime maxDate = DateTime.Parse(ViewData["maxDate"] as string);
+
 }
 
-    <h2>@ViewData["Title"]</h2>
+<h2>@ViewData["Title"]</h2>
+
+<!--Barra de busca -->
+
+<nav class="navbar navbar-inverse">
+
+    <div class="container-fluid">
+
+        <form class="navbar-form navbar-left" role="search">
+
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="minDate">Min Date</label>
+                    <input type="date" class="form-control" name="minDate" value=@ViewData["minDate"]>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="minDate">Max Date</label>
+                    <input type="date" class="form-control" name="maxDate" value=@ViewData["maxDate"]>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+
+        </form>
+    </div>
+</nav>
+
+<!--
+Para cada departemento vão ter vários registros de vendas.
+    Fazer dois foreach, um para percorrer os departamento e outro para percorrer as vendas
+-->
+
+@foreach (var departmentGroup in Model)
+{
+    <!--Cada departamento terá um painel-->
+    <div class="panel panel-primary">
+        <!--Key - é do tipo departamento. Chama o método TotalSalesDepartamento, passando minDate e maxDate-->
+        <div class="panel-heading">
+            <h3 class="panel-title">Department @departmentGroup.Key.Name, Total Sales = @departmentGroup.Key.TotalSalesDepartamento(minDate, maxDate).ToString("F2")</h3>
+        </div>
+        <!--Dentro de cada painel terá uma tabela de vendas-->
+        <div class="panel-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr class="success">
+
+
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Seller</th>
+                        <th>Status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--Para dada departamento fazer um outro foreach para percorrer as vendas
+                    associadas a ele. -->
+                    @foreach (var item in departmentGroup)
+                    {
+                    <tr>
+                        <td>@Html.DisplayFor(x => item.Seller.Name)</td>
+                        <td>@Html.DisplayFor(x => item.Date)</td>
+                        <td>@Html.DisplayFor(x => item.Amount)</td>
+                        <td>@Html.DisplayFor(x => item.Seller.Name)</td>
+                        <td>@Html.DisplayFor(x => item.SalesStatus)</td>
+                    </tr>
+                    }
 
 
 
 
 
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
 

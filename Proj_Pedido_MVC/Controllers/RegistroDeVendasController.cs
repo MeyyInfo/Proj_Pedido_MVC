@@ -43,9 +43,26 @@ namespace Proj_Pedido_MVC.Controllers
             return View(result);
         }
 
-        public IActionResult GroupingSearch()
+
+        public async Task<IActionResult> GroupingSearch(DateTime? minDate, DateTime? maxDate)
         {
-            return View();
+            //Verificar se a data tem um valor, caso não tenha, atribuir um valor
+
+            if (!minDate.HasValue)
+            {
+                minDate = new DateTime(DateTime.Now.Year, 1, 1);
+            }
+            if (!maxDate.HasValue)
+            {
+                maxDate = DateTime.Now;
+            }
+
+            //Os dados serão passados para View utilizando o dicionário ViewData
+            ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
+            ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
+
+            var result = await _registroDeVendaService.FindByDateGroupingAsync(minDate, maxDate);
+            return View(result);
         }
     }
 }
